@@ -19,7 +19,7 @@ description: "Symfony Notes"
 	{ % extends "AcmeDemoBundle::layout.html.twig" % } #继承模板
 	——————————————————————————————————————
 	{ % block content % } #父模板中的格式
-    { % endblock %}
+    { % endblock % }
     
     { % block content % } #子模板中的格式
     	<h1>Hello {{ name }}!</h1>
