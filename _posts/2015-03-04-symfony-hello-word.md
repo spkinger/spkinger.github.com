@@ -2,6 +2,8 @@
 layout: page
 title: "Hello Word"
 description: "Symfony's hello world"
+category: "symfony"
+
 ---
 {% include JB/setup %}
 

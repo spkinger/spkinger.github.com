@@ -2,6 +2,8 @@
 layout: page
 title: "Symfony Notes"
 description: "Symfony Notes"
+category: "symfony"
+
 ---
 {% include JB/setup %}
 
