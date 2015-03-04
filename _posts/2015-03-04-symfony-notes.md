@@ -7,41 +7,6 @@ description: "Symfony Notes"
 
 ##1.视图
 
-####(1).模板分隔符
-
-注意下面{和%{、#、%之间要去掉空格
-
-`{{。。。}} #输出变量`
-
-`{#。。。#} #注释语句，不会在html中显示`
-
-`{%。。。%} #条件语句`
-
-####(2).特定语句
-
-注意下面{和%之间要去掉空格
-
-`{% extends "AcmeDemoBundle::layout.html.twig" %} #继承模板`
-——————————————————————————————————————
-`{% block content %} #父模板中的格式`
-
-`{% endblock %}`
-    
-`{% block content %} #子模板中的格式`
-
-`<h1>Hello {{ name }}!</h1>`
-    
-`{% endblock %}`
-——————————————————————————————————————
-`{% include "AcmeDemoBundle:Demo:embedded.html.twig" %} #包含同级模板语句`
-——————————————————————————————————————
-`{% render "AcmeDemoBundle:Demo:fancy" with { 'name': name, 'color': 'green' } %} #输出Demo类下fancy控制器的内容`
-——————————————————————————————————————
-`<a href="{{ path('_demo_hello', { 'name': 'Thomas' }) }}">Greet Thomas!</a> #创建链接`
-——————————————————————————————————————
-`<link href="{{ asset('css/blog.css') }}" rel="stylesheet" type="text/css" /> #引入图片、js、css`
-
-`<img src="{{ asset('images/logo.png') }}" />`
 
 ##2.控制器
 
