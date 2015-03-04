@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Symfony Notes"
-description: ""
+description: "Symfony Notes"
 ---
 {% include JB/setup %}
 
@@ -10,7 +10,7 @@ description: ""
 ####(1).模板分隔符
 
 	{{。。。}} #输出变量
-	{%。。。%} #条件语句
+	`{%。。。%}` #条件语句
 	{#。。。#} #注释语句，不会在html中显示
 
 ####(2).特定语句
