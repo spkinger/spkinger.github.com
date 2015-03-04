@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Symfony notes"
-description: "Symfony notes"
+description: "Symfony  notes"
 ---
 {% include JB/setup %}
 
