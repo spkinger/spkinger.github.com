@@ -3,3 +3,13 @@ php:
   - 5.3
   - 5.4
   - 5.5
+before_install:
+  - sudo apt-get update > /dev/null
+
+install:
+  - sudo apt-get install -y gem wget
+  - sudo gem install jekyll
+
+script:
+  - jekyll serve
+  - wget http://127.0.0.1:4000
