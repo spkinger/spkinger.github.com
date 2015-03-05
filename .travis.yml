@@ -10,6 +10,4 @@ install:
   - sudo apt-get install -y gem wget
   - sudo gem install jekyll
 
-script:
-  - jekyll serve
-  - wget http://127.0.0.1:4000
+script: phpunit -v
