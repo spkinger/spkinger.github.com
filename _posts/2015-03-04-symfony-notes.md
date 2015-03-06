@@ -135,9 +135,19 @@ category: "symfony"
 	
 ##3.Hello Word
 
+####(0).symony的安装
+
+	首先要保证php-cli可用，没有请自行安装（symfony要求php在5.0版本以上
+	#安装composer包依赖管理工具，然后就可以使用composer这个命令了
+	curl -sS https://getcomposer.org/installer | php
+	mv composer.phar /usr/local/bin/composer
+	#安装symfony
+	#我安装的是2.6版本，然后安装到当前目录的symfony下
+	composer create-project symfony/framework-standard-edition ./symfony
+
 ####(1).php-cli运行网站
 
-	#在网站根目录下执行，-vvv代表将请求信息都打印出来
+	#在网站根目录下执行，-vvv代表将请求信息都打印出来（此处根目录是symfony里面）
 	php app/console server:run -vvv
 	
 ####(2).创建一个新Bundle
@@ -228,3 +238,53 @@ category: "symfony"
 	foreach ($session->getFlashBag()->get('notice', array()) as $message) {
     	echo $message;
     }
+
+##6.服务
+	
+	#列出所有服务
+	app/console container:debug
+	
+##7.视图
+
+####(1).资源文件配置
+	
+	#css、js等资源文件所在的目录是在scr/bundle名/Resource/public下面
+	#为了使资源文件能够访问，需要给资源文件作一个软连接到web/bundles/xxx目录下面
+	php app/console assets:install web --symlink --relative
+	
+	#然后在视图文件中css文件的路径就像如下书写方式
+	<link rel="stylesheet" href="{ { asset('bundles/spkingerweb/css/bootstrap.css') } }">
+	
+	#另一种资源加载的方法
+	{ % block my_css % }
+        { % stylesheets '@SpkingerWebBundle/Resources/public/css' % }
+        <link rel="stylesheet" href="{ { asset_url } }" />
+        { % endstylesheets % }
+	{ % endmyblock % }
+	{ % block my_js % }
+	    { % javascript '@SpkingerWebBundle/Resources/public/js' % }
+        <script type="text/javascript" src="{ { asset_url } }"></script>
+        { % endjavascript % }
+	{ % endblock % }
+	
+####(2).block的使用
+
+	#为了将layout文件可以拆分模块，并在子类视图中复写，可以使用block函数，如下
+	#子类视图中也用如下格式来替换
+	{ % block header % }
+	内容
+	{ % endblock % }
+	
+	#继承父类的内容(一般不需要，因为不写这个模块的情况下会自动继承)
+	{ % block header % }
+		{ { parent() } }
+	{ % endblock % }
+	
+####(3).内容的输出
+	
+	#控制器中
+	return array('content'=>"内容");
+	#视图中
+	{ { content } }
+	#使用函数
+	{ { content|upper } }
