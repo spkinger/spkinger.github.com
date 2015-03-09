@@ -254,7 +254,7 @@ category: "symfony"
 	
 	#然后在视图文件中css文件的路径就像如下书写方式
 	<link rel="stylesheet" href="{ { asset('bundles/spkingerweb/css/bootstrap.css') } }">
-	
+=================
 	#<2>.另一种资源加载的方法,这样会把目录下面的内容全部加载
 	#注意：这种写法有可能会报一个错，就是提示你SpkingerWebBundle未绑定，这样修改
 	------------------------------------------------------------
