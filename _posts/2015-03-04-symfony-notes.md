@@ -302,6 +302,26 @@ category: "symfony"
 	{ % javascripts '@SpkingerWebBundle/Resources/public/js/vendor/*' filter="uglifyjs2" % }
     	<script type="text/javascript" src="{ { asset_url } }"></script>
     { % endjavascripts % }
+
+=================
+
+	#<5>.版本控制
+	修改app/config/config.yml
+	找到framework->templating添加
+	assets_version: 5
+	assets_version_format: %%s?version=%%s
+
+=================
+
+	#<6>.生产环境中生成压缩混淆后文件的命令
+	php app/console assetic:dump --env=prod --no-debug
+	#启用多线程生成
+	先修改composer.json中"symfony/assetic-bundle"为2.4及以上
+	"symfony/assetic-bundle": "2.6.1",
+	添加
+	"kriswallsmith/spork": "dev-master",
+	然后在生成的时候加--forks=线程数
+	php app/console assetic:dump --env=prod --no-debug --forks=3
 	
 ####(2).block的使用
 
