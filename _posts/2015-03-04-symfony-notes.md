@@ -254,7 +254,9 @@ category: "symfony"
 	
 	#然后在视图文件中css文件的路径就像如下书写方式
 	<link rel="stylesheet" href="{ { asset('bundles/spkingerweb/css/bootstrap.css') } }">
+	
 =================
+
 	#<2>.另一种资源加载的方法,这样会把目录下面的内容全部加载
 	#注意：这种写法有可能会报一个错，就是提示你SpkingerWebBundle未绑定，这样修改
 	------------------------------------------------------------
@@ -273,6 +275,33 @@ category: "symfony"
         <script type="text/javascript" src="{ { asset_url } }"></script>
         { % endjavascript % }
 	{ % endblock % }
+	
+=================
+
+	#<3>.其他资源加载方式
+	#以coffeescript举例(这里需要安装coffeescript)
+	先修改app/config/config.yml
+	在assetic下的filters中添加
+	filters:
+		coffee:
+			bin: /usr/local/bin/coffee
+			node: /usr/bin/node
+	视图中加载方式如下
+	{ % javascripts
+        '@SpkingerWebBundle/Resources/public/js/*.coffee' fileter="coffee" % }
+        <script src="{ { asset_url } }"></script>
+    { % endjavascripts % }
+    
+=================
+
+	#<4>.js压缩
+	需要先安装gnlifyjs
+	npm install uglify-js
+	ln -s 执行文件路径 /usr/local/bin/uglifyjs
+	然后在script中添加filter="uglifyjs2"
+	{ % javascripts '@SpkingerWebBundle/Resources/public/js/vendor/*' filter="uglifyjs2" % }
+    	<script type="text/javascript" src="{ { asset_url } }"></script>
+    { % endjavascripts % }
 	
 ####(2).block的使用
 
