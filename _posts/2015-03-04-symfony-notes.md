@@ -66,7 +66,7 @@ category: "symfony"
 	# 产生一个子请求，返回respose对象
 	# do something with the response or return it directly
 
-<a id="get_request"><h4>(3).获取请求信息</h4></a>
+<h4><a id="get_request">(3).获取请求信息</a></h4>
 
 	$request = $this->getRequest();
 	$request->isXmlHttpRequest(); // 是否是Ajax请求？
@@ -215,7 +215,7 @@ category: "symfony"
 	
 ##5.请求
 
-<a href="#get_request"><h4>(1).request</h4></a>
+<h4><a href="#get_request">(1).request</a></h4>
 
 ####(2).response
 
@@ -248,19 +248,26 @@ category: "symfony"
 
 ####(1).资源文件配置
 	
-	#css、js等资源文件所在的目录是在scr/bundle名/Resource/public下面
+	#<1>.css、js等资源文件所在的目录是在scr/bundle名/Resource/public下面
 	#为了使资源文件能够访问，需要给资源文件作一个软连接到web/bundles/xxx目录下面
 	php app/console assets:install web --symlink --relative
 	
 	#然后在视图文件中css文件的路径就像如下书写方式
 	<link rel="stylesheet" href="{ { asset('bundles/spkingerweb/css/bootstrap.css') } }">
 	
-	#另一种资源加载的方法
+	#<2>.另一种资源加载的方法,这样会把目录下面的内容全部加载
+	#注意：这种写法有可能会报一个错，就是提示你SpkingerWebBundle未绑定，这样修改
+	------------------------------------------------------------
+	编辑 app/config/config.yml
+	在assetic下的bundles中添加SpkingerWebBundle，如下
+	assetic:
+		bundles: [ SpkingerWebBundle ]
+	------------------------------------------------------------
 	{ % block my_css % }
         { % stylesheets '@SpkingerWebBundle/Resources/public/css' % }
         <link rel="stylesheet" href="{ { asset_url } }" />
         { % endstylesheets % }
-	{ % endmyblock % }
+	{ % endblock % }
 	{ % block my_js % }
 	    { % javascript '@SpkingerWebBundle/Resources/public/js' % }
         <script type="text/javascript" src="{ { asset_url } }"></script>
