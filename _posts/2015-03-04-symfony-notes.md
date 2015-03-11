@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Symfony 笔记1"
+title: "Symfony 笔记1--控制器视图路由"
 description: "Symfony的视图、控制器、路由部分"
 category: "symfony"
 
