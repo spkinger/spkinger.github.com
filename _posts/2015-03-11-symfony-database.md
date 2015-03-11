@@ -1,3 +1,13 @@
+
+---
+layout: page
+title: "Symfony 笔记2--数据库操作"
+description: "Symfony使用的数据库框架Doctrine"
+category: "symfony"
+
+---
+{% include JB/setup %}
+
 #8.数据库
 
 ####(1).生成set、get方法和repository

@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Symfony Notes"
-description: "Symfony Notes"
+title: "Symfony 笔记1"
+description: "Symfony的视图、控制器、路由部分"
 category: "symfony"
 
 ---
