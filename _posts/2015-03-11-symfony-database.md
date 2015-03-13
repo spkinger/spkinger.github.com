@@ -7,7 +7,7 @@ category: "symfony"
 ---
 {% include JB/setup %}
 
-#8.数据库
+#8.数据库设置
 
 ####(1).生成set、get方法和repository
 	
@@ -100,3 +100,51 @@ category: "symfony"
 	
 	#再执行
 	app/console doctrine:schema:update --force (强制执行更新表结构)
+	
+#9.数据库操作
+
+####(1).简单的插入
+
+	$user = new User();
+	$user->setAge(19);
+	$user->setEmail("xxx@xx.com");
+	$user->setPassword('xxx');
+	
+	$em = $this->getDoctrine()->getManager();
+	$em->persist($user);
+	$em->flush();
+
+####(2).关联的数据插入
+	
+	use Spkinger\WebBundle\Entity\UserRepository;
+	use Spkinger\WebBundle\Entity\Book;
+
+	$em = $this->getDoctrine()->getManager();
+	$user = $em->getRepository("SpkingerWebBundle:User")-findOneBy(array('id'=>1));
+
+	$book1 = new Book();
+	$book1->setTitle("book1")->setPrice(10)->addUser($user);
+	
+####(3).关联数据的查询
+
+	/** @var $user \Spkinger\WebBundle\Entity\User */
+	$user = $em->getRepository("SpkingerWebBundle:User")-findOneBy(array('id'=>1));
+
+	foreach($user->getBooks() as $book){
+		echo $book->getTitle();
+	}
+
+####(4).更新数据库
+
+	$em = $this->getDoctrine()->getManager();
+	$user = $em->getRepository("SpkingerWebBundle:User")-findOneBy(array('id'=>1));
+	$user->setAge(20);
+	$em->persist($user);
+	$em->flush();
+
+####(5).删除数据
+
+	$em = $this->getDoctrine()->getManager();
+	$user = $em->getRepository("SpkingerWebBundle:User")-findOneBy(array('id'=>1));
+	$em->remove($user);
+	$em->flush();
