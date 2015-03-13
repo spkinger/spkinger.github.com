@@ -9,5 +9,5 @@ tagline: Deeper and deeper
 <h2><a class="post_title" href="{{post.url}}">{{post.title}}</a></h2>
 <div class="post-content">{{ post.date | date_to_string }}</div>
 {% endfor %} 
+<h4><a href="/archive.html">更多>></a></h4>
 <hr/>
-<h4><a href="/archive.html">更多</a></h4>
