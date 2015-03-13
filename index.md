@@ -8,6 +8,7 @@ tagline: Deeper and deeper
 {% for post in site.posts limit:10 %}
 <h2><a class="post_title" href="{{post.url}}">{{post.title}}</a></h2>
 <div class="post-content">{{ post.date | date_to_string }}</div>
+<hr/>
 {% endfor %} 
 <h4><a href="/archive.html">更多>></a></h4>
 <hr/>
