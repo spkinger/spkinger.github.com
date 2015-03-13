@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Hello Word"
-description: "Symfony's hello world"
+title: "Hello Word By Symfony"
+description: "Hello Word By Symfony"
 category: "symfony"
 
 ---
