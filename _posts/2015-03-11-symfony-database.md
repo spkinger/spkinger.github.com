@@ -148,3 +148,124 @@ category: "symfony"
 	$user = $em->getRepository("SpkingerWebBundle:User")-findOneBy(array('id'=>1));
 	$em->remove($user);
 	$em->flush();
+
+####(6).数据查询1--直接获取单条数据、根据id绑定数据库
+
+	/**
+	 * @Route("/book/show/{id}")
+	 * @ParamConverter("book", class="SpkingerWebBundle:Book")
+	 */
+	public function showBookAction(Book $book){
+		return new Response($book->getTitle());
+	}
+
+####(7).数据查询2-find的使用
+
+	/** @var $books \Spkinger\WebBundle\Entity\Book */
+	$books = $em->getRepository("SpkingerWebBundle:Book")
+		->findBy(
+				array("title"=>"book1"),
+				array("price"=>"DESC")
+		);
+	#或者
+	$books = $em->getRepository("SpkingerWebBundle:Book")
+		->findByTitle("book1");
+
+	echo $books[0]->getTitle();
+
+####(8).使用自定义方法查询
+
+	表对应的repository文件中添加
+	public function getAllValidByTitle($title){
+		return $this->findBy(array("title"=>$title));
+	}
+	
+	控制器里面可以这样调用
+	$books = $em->getRepository("SpkingerWebBundle:Book")
+		->getAllValidByTitle("book1");
+
+####(9).自动更新创建和编辑时间
+
+	#表对应的entry类外注释增加 @ORM\HasLifecycleCallbacks();
+	如下
+	/**
+ 	 * @ORM\Entity(repositoryClass="BookRepository")
+ 	 * @ORM\Table(name="book")
+ 	 * @ORM\HasLifecycleCallbacks();
+ 	 */
+ 	 
+ 	 #添加字段
+ 	 /**
+      * @ORM\Column(type="datetime")
+      */
+     protected $createAt;
+
+     /**
+      * @ORM\Column(type="datetime")
+      */
+     protected $updateAt;
+     
+     #增加方法，在persist（创建）之前执行，在update（更新）之前执行
+     /**
+      * @ORM\PrePersist()
+      */
+     public function PrePersist(){
+         if($this->getCreateAt() == null){
+             $this->setCreateAt(new \DateTime('now'));
+         }
+
+         $this->setUpdateAt(new \DateTime('now'));
+     }
+     /**
+      * @ORM\PreUpdate()
+      */
+     public function PreUpdate(){
+         $this->setUpdateAt(new \DateTime('now'));
+     }
+     
+     #注意更新表结构和set、个头方法
+     app/console doctrine:schema:update --force
+     app/console generate:doctrine:entities SpkingerWebBundle
+
+####(10).直接执行sql语句
+
+	注意这里返回的是mysql原生的结果集(数组)
+	$this->get('database_connection')->fetchAll("SELECT * FROM book WHERE book.id = 1");
+	
+####(11).手动控制事务
+
+	(1)使用try{}catch{}
+	$em->getConnection()->beginTransaction();
+	try{
+		$book2 = $em->getRepository("SpkingerWebBundle:Book")
+				->findOneBy(array("title"=>"book1"));
+		$book2->setPrice(11);
+		$em->persist($book2);
+		$em->getConnection()->commit();
+	}catch(Exception $e){
+		$em->getConnection()->rollback();
+	}
+	
+	(2)使用框架自身方法
+	$em->transactional(function($em){
+		$book2 = $em->getRepository("SpkingerWebBundle:Book")
+			->findOneBy(array("title"=>"book1"));
+		$book2->setPrice(11);
+		$em->persist($book2);
+	});
+
+####(12).执行sql返回（symfony可用的）对象
+
+	#注意：这样搜索结果不全时，使用对象调用不存在的set、get会报错
+	$sql = "SELECT
+			partial b.{id,title}
+			partial u.{id,email}
+			FROM SpkingerWebBundle:Book b join b.users u"
+
+####(13).打印sql结果
+
+	$query = $this->getDoctrine()
+			->getManager()
+			->createQuery("SELECT u FROM SpkingerWebBundle:User u");
+	Debug::dump($query->getResult());
+	exit();
