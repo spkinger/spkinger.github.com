@@ -165,6 +165,7 @@ category: "php"
 ####(3).注册表模式--全局共享和交换对象
 
 用处是声明一次对象后，以后直接通过get方法来存取
+	
 	namespace Xxx;
 	class Register{
 	
