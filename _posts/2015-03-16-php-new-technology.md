@@ -167,6 +167,7 @@ category: "php"
 用处是声明一次对象后，以后直接通过get方法来存取
 	
 	namespace Xxx;
+	
 	class Register{
 	
 		protected static $objects;
@@ -188,6 +189,7 @@ category: "php"
 	}
 	
 	namespace Xxx;
+	
 	class Factory{
 		static function createDatabase(){
 			$db = Database::getInstance();
@@ -195,6 +197,7 @@ category: "php"
 			return $db;
 		}
 	}
+	
 	#第一次调用
 	$db = Xxx\Factory::createDatabase();
 	#第二次调用
