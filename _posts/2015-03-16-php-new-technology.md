@@ -202,4 +202,64 @@ category: "php"
 	$db = Xxx\Factory::createDatabase();
 	#第二次调用
 	$db = Xxx\Register::get('db1);
+
+####(4).适配器模式--将不同的函数封装成统一的API
+
+	#首先创建一个接口类，里面定义几个需要实现的方法；真正使用的类要继承自这个类并实现里面几个必须方法
+	#如下接口
+	interface IDatabase{
+		function connect($host, $user, $passwd, $dbname);
+		function query($sql);
+		function close();
+	}
+	#实现的类
+	class MySQL implement IDatabase{
+	
+		protected $conn;
+		
+		function connetc($host, $user, $passwd, $dbname){
+			$conn = mysql_connect($host, $user, $passwd);
+			mysql_select_db($dbname, $connect);
+			$this->conn = $conn;
+		}
+		
+		function query($sql){
+			return mysql_query($sql, $this->conn);
+		}
+		
+		function close(){
+			mysql_close($this->conn);
+		}
+	}
+
+####(5).策略模式
+
+	#通过传入接口不同的实现，使用统一的调用模式，得到不同的结果
+	#方便实现的扩展，和功能的解耦，功能只需要在实现类里面实现修改即可
+	
+	#例子
+	class Show{
+		/**
+		 * @var \Xxx\UserStrategy
+		 */
+		 protected $strategy;
+	 
+		 function index(){
+	 		$this->stragegy->showAd();
+		 }
+	 
+		 function setStrategy(\Xxx\UserStrategy $strategy){
+	 		$this->strategy = $stragegy;
+		 }
+	 }
+	 interface UserStrategy{
+	 	function showAd();
+	 }
+	 class FemaleUserStragegy implements UserStrategy{
+	 	function showAd(){}
+	 }
+	 
+	 $show = new Show();
+	 $show->setStrategy(new FemaleUserStragegy());
+	 $show->index();
 	
