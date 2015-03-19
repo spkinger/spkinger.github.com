@@ -37,19 +37,19 @@ category: "symfony"
 
 ####(2).FORM模板的修改
 
-	{{ form(form) }}可扩展为
+	{ { form(form) } }可扩展为
 	
-	{{ form_start(form) }}
-	{{ form_widget(form) }}
-	{{ form_end(form) }}
+	{ { form_start(form) } }
+	{ { form_widget(form) } }
+	{ { form_end(form) } }
 	
-	{{ form_start(form) }}
+	{ { form_start(form) } }
 	<!--这里有多个-->
-	{{ form_label(form.email) }}
-	{{ form_errors(form.email) }}
-	{{ form_widget(form.email) }}
+	{ { form_label(form.email) } }
+	{ { form_errors(form.email) } }
+	{ { form_widget(form.email) } }
 	
-	{{ form_end(form) }}
+	{ { form_end(form) } }
 
 ####(3).选项模板的修改
 	
