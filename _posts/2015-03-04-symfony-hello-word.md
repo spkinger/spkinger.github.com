@@ -129,10 +129,11 @@ yml src/xxxBundle/Resources/config/doctrine
 
 ####(4).生成具备CRUD功能的控制器和表单
 
-	解释是使用entity SpkWebBundle:Job，路由前缀是job，添加“write”方法（包括new, update, and delete方法），格式使用yml
-	app/console doctrine:generate:crud --entity=SpkWebBundle:Job --route-prefix=job --with-write --format=yml
+	解释是使用entity SpkWebBundle:Job，路由前缀是spk_job，添加“write”方法（包括new, update, and delete方法），格式使用yml
+	app/console doctrine:generate:crud --entity=SpkWebBundle:Job --route-prefix=spk_job --with-write --format=yml
 	
 	然后可访问如下这些等等
+	#需要修改下src/Xxx/XxxBundle/Resources/config/routing.yml里面的spk_job为job
 	http://yymm.com/app_dev.php/job
 	http://yymm.com/app_dev.php/job/new
 	http://yymm.com/app_dev.php/job/1/show
