@@ -30,6 +30,9 @@ category: "git"
 	
 	#id_rsa是刚刚生成的 ssh key 的文件名
 	ssh-add ~/.ssh/id_rsa
+	#这里如果报错 Could not open a connection to your authentication agent
+	#就在ssh-add前执行这个命令(解释是Note that this will start the agent for msysgit Bash on Windows.)
+	eval `ssh-agent -s`
 	
 ##3.将 SSH key 的公钥内容放入github的key库中
 	
