@@ -28,6 +28,20 @@ category: "git"
 	
 ##2.启用刚刚生成的 SSH key （关键的一步）
 	
+	#一、永久添加
+	添加一个配置文件
+	vim ~/.ssh/config
+	添加如下内容
+	Host github.com
+	  User git
+	  Hostname github.com
+	  PreferredAuthentications publickey
+	  IdentityFile ~/.ssh/id_rsa
+	这样就能一直使用这个key了，也可以继续添加，进行多域名管理
+	解释：
+	Host 是请求的服务器的代号
+	Hostname是服务器地址
+	#二、临时添加
 	#id_rsa是刚刚生成的 ssh key 的文件名
 	ssh-add ~/.ssh/id_rsa
 	#这里如果报错 Could not open a connection to your authentication agent
