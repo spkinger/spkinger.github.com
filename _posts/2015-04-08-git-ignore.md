@@ -22,12 +22,11 @@ category: "git"
 
 ##2.忽略已提交的文件
 
-  #忽略单个文件
-  git update-index --assume-unchanged yy.cc
-  #忽略文件夹（末尾不要加*）
-  git update-index --assume-unchanged xx/
-  
-  #解除忽略
-  git update-index --no-assume-unchanged xx/
-  #查看忽略的文件
-  git  ls-files -v
+    #忽略单个文件
+    git update-index --assume-unchanged yy.cc
+    #忽略文件夹（末尾不要加*）
+    git update-index --assume-unchanged xx/
+    #解除忽略
+    git update-index --no-assume-unchanged xx/
+    #查看忽略的文件
+    git  ls-files -v
